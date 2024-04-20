@@ -86,5 +86,5 @@ with gr.Blocks() as mvp:
 if __name__ == "__main__":
     os.makedirs("gradio_input", exist_ok=True)
     os.makedirs("gradio_output", exist_ok=True)
-    mvp.launch()
+    mvp.launch(share=True)
     # main()
