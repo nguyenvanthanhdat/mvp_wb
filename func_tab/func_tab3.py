@@ -43,7 +43,7 @@ def insert_item(file_path, prompt, insert_x, insert_y):
             --coords_type key_in \
             --point_coords {insert_x} {insert_y} \
             --point_labels 1 \
-            --text_prompt {prompt} \
+            --text_prompt "{prompt}" \
             --dilate_kernel_size 50 \
             --output_dir ./insert_output \
             --sam_model_type "vit_h" \
