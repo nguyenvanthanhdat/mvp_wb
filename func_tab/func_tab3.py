@@ -41,18 +41,18 @@ def insert_item(file_path, insert_x, insert_y):
         python Inpaint-Anything/fill_anything.py \
             --input_img ./remove_output/remove_output.png \
             --coords_type key_in \
-            --point_coords 750 500 \
+            --point_coords {insert_x} {insert_y} \
             --point_labels 1 \
             --text_prompt "a Picasso painting on the wall" \
             --dilate_kernel_size 50 \
-            --output_dir ./results \
+            --output_dir ./insert_output \
             --sam_model_type "vit_h" \
             --sam_ckpt Inpaint-Anything/pretrained_models/sam_vit_h_4b8939.pth
         """
     )
-    img1 = Image.open(os.path.join("insert_output", "input_WB_new", 'inpainted_with_mask_0.png'))
-    img2 = Image.open(os.path.join("insert_output", "input_WB_new", 'inpainted_with_mask_1.png'))   
-    img3 = Image.open(os.path.join("insert_output", "input_WB_new", 'inpainted_with_mask_2.png'))
+    img1 = Image.open(os.path.join("insert_output", "remove_output", 'filled_with_mask_0.png'))
+    img2 = Image.open(os.path.join("insert_output", "remove_output", 'filled_with_mask_1.png'))   
+    img3 = Image.open(os.path.join("insert_output", "remove_output", 'filled_with_mask_2.png'))
 
     return [
         gr.Image(value=img1, label= f"Option 1"), 
