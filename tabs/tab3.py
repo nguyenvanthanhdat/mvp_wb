@@ -26,7 +26,9 @@ def Tab3():
     
         with gr.Column():
             with gr.Row():
-                rm_button = gr.Button("Insert item")
+                prompt = gr.Text()
+            with gr.Row():
+                insert_button = gr.Button("Insert item")
         with gr.Row():
             with gr.Column():
                 image_option_1 = gr.Image(label= "Option 1")
@@ -46,7 +48,7 @@ def Tab3():
     insert_y.release(get_point, inputs=[insert_x, insert_y], 
                      outputs=[image_point, insert_x, insert_y]
     )
-    rm_button.click(insert_item, inputs=[image_point, insert_x, insert_y], 
+    insert_button.click(insert_item, inputs=[image_point, prompt, insert_x, insert_y], 
                     outputs=[image_option_1, image_option_2, image_option_3]
     )
     choose1.click(choose, image_option_1, outputs=[image_option_1, image_option_2, image_option_3, image_insertd,

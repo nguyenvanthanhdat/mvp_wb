@@ -35,7 +35,7 @@ def get_point(insert_x, insert_y):
     point_image = Image.open(os.path.join("insert_input", "with_point" + '.png'))
     return point_image, gr.Slider(minimum=0, maximum=width - 1, step=1), gr.Slider(minimum=0, maximum=height - 1, step=1)
 
-def insert_item(file_path, insert_x, insert_y):
+def insert_item(file_path, prompt, insert_x, insert_y):
     os.system(
         f"""
         python Inpaint-Anything/fill_anything.py \
@@ -43,7 +43,7 @@ def insert_item(file_path, insert_x, insert_y):
             --coords_type key_in \
             --point_coords {insert_x} {insert_y} \
             --point_labels 1 \
-            --text_prompt "a Picasso painting on the wall" \
+            --text_prompt {prompt} \
             --dilate_kernel_size 50 \
             --output_dir ./insert_output \
             --sam_model_type "vit_h" \
