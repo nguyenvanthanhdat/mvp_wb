@@ -6,3 +6,4 @@ imageio
 scikit-learn
 diffusers
 gdown
+seaborn
