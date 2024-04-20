@@ -26,7 +26,7 @@ def Tab3():
     
         with gr.Column():
             with gr.Row():
-                prompt = gr.Text()
+                prompt = gr.Text(label="Prompt")
             with gr.Row():
                 insert_button = gr.Button("Insert item")
         with gr.Row():
