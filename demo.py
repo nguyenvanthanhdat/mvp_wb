@@ -152,5 +152,5 @@ if __name__ == "__main__":
     os.makedirs("wb_output", exist_ok=True)
     os.makedirs("remove_input", exist_ok=True)
     os.makedirs("insert_input", exist_ok=True)
-    mvp.launch()
+    mvp.launch(share=True)
     # main()
