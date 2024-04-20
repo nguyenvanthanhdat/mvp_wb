@@ -17,8 +17,8 @@ def Tab2():
             with gr.Row():
                 gr.Markdown("REMOVE THINGS (Test with (2090, 560))")
             with gr.Row():
-                remove_x = gr.Slider(visible=True)
-                remove_y = gr.Slider(visible=True)
+                remove_x = gr.Slider(label="x", visible=True)
+                remove_y = gr.Slider(label="y", visible=True)
             with gr.Row():
                 image_point = gr.Image(label= "Choose item")# Removed image")
             # with gr.Row():

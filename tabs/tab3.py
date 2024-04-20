@@ -17,8 +17,8 @@ def Tab3():
             with gr.Row():
                 gr.Markdown("INSERT THINGS (Test with (2090, 560))")
             with gr.Row():
-                insert_x = gr.Slider(visible=True)
-                insert_y = gr.Slider(visible=True)
+                insert_x = gr.Slider(label="x", visible=True)
+                insert_y = gr.Slider(label="y", visible=True)
             with gr.Row():
                 image_point = gr.Image(label= "Choose item")# Inserted image")
             # with gr.Row():

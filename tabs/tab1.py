@@ -18,8 +18,8 @@ def Tab1():
                 with gr.Row():
                     gr.Markdown("BRIGT UP IMAGE")
                 with gr.Row():
-                        alpha = gr.Slider(0, 10, step=0.01)
-                        beta = gr.Slider(0, 100, step=1)
+                        alpha = gr.Slider(0, 10, step=0.01, label="alpha")
+                        beta = gr.Slider(0, 100, step=1, label="beta")
                 
                 with gr.Row():
                     bright_image = gr.Image(label= "Bright image")
