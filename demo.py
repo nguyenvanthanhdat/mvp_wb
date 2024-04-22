@@ -74,9 +74,9 @@ with gr.Blocks() as mvp:
     # generate = gr.Button("Generate")
     with gr.Row():
         with gr.Column():
-            alpha = gr.Slider(0, 10, step=0.01)
+            alpha = gr.Slider(0, 10, step=0.01, label="alpha")
         with gr.Column():
-            beta = gr.Slider(0, 100, step=1)
+            beta = gr.Slider(0, 100, step=1, label="beta")
     with gr.Row():
         bright_image = gr.Image(label= "Bright image")
     alpha.release(bright_up, inputs=[alpha, beta], outputs=[bright_image])
