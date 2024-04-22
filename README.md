@@ -11,5 +11,6 @@ This is a mvp for cwcc project
 
 The formula $g(x) = α * f(x) + β$ 
 
+- Start by increasing the alpha first, and halt adjustments if the color becomes unsuitable or similar to beta.
 - The $α$ control the constract, if adjusted too high, this coefficient may lead to color inversion, where light colors become dark and vice versa.
 - The $g(x) = α * f(x) + β$, if adjusted too high, this factor can result in overexposure of the photo.
