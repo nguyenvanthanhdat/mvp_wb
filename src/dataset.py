@@ -14,7 +14,7 @@ from DeepWB.utilities.utils import colorTempInterpolate_w_target
 class Data(Dataset):
   def __init__(self, imgfiles, patch_size=128, patch_number=32, aug=True,
                wb_settings=None, shuffle_order=False, mode='training',
-               multiscale=False, keep_aspect_ratio=False, t_size=320):
+               multiscale=False, keep_aspect_ratio=False, t_size=320, device="cuda"):
     """ Data constructor
     """
 
@@ -38,6 +38,7 @@ class Data(Dataset):
     assert (mode == 'training' or
             mode == 'testing'), 'mode should be training or testing'
     self.mode = mode
+    self.device = device
 
     if shuffle_order is True and self.mode == 'testing':
       logging.warning('Shuffling is not allowed in testing mode')
@@ -50,8 +51,8 @@ class Data(Dataset):
       self.deepWB_T.load_state_dict(torch.load('DeepWB/models/net_t.pth'))
       self.deepWB_S = dwb.deepWBnet()
       self.deepWB_S.load_state_dict(torch.load('DeepWB/models/net_s.pth'))
-      self.deepWB_T.eval().to(device='cuda')
-      self.deepWB_S.eval().to(device='cuda')
+      self.deepWB_T.eval().to(device=self.device)
+      self.deepWB_S.eval().to(device=self.device)
 
 
     logging.info(f'Creating dataset with {len(self.imgfiles)} examples')
@@ -251,7 +252,7 @@ class Data(Dataset):
         base_name = D_img_file
         base_name = path.splitext(base_name)[0]
         t_img, s_img = deep_wb(d_img, task='editing', net_s=self.deepWB_S,
-                               net_t=self.deepWB_T, device='cuda')
+                               net_t=self.deepWB_T, device=self.device)
         if self.keep_aspect_ratio:
           d_img = ops.aspect_ratio_imresize(d_img, max_output=t_size)
           t_img = ops.aspect_ratio_imresize(t_img, max_output=t_size)

@@ -41,11 +41,11 @@ def test_net(net, device, data_dir, model_name, out_dir, save_weights,
   if multi_scale:
     test_set = dataset.Data(input_files, mode='testing', t_size=t_size,
                             wb_settings=wb_settings,
-                            keep_aspect_ratio=keep_aspect_ratio)
+                            keep_aspect_ratio=keep_aspect_ratio, device=device)
   else:
     test_set = dataset.Data(input_files, mode='testing', t_size=t_size,
                             wb_settings=wb_settings,
-                            keep_aspect_ratio=keep_aspect_ratio)
+                            keep_aspect_ratio=keep_aspect_ratio, device=device)
 
   test_set = DataLoader(test_set, batch_size=batch_size, shuffle=False,
                             num_workers=0, pin_memory=True)
