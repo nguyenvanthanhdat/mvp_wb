@@ -3,16 +3,6 @@ from func_tab.func_tab2 import *
 
 def Tab2():
     with gr.Tab("Remove Items") as remove_tab:
-        # gr.Markdown("Bright Image")
-        # with gr.Column():
-        #     with gr.Row():
-        #         gr.Markdown("BRIGT UP IMAGE")
-        #     with gr.Row():
-        #             alpha = gr.Slider(0, 10, step=0.01)
-        #             beta = gr.Slider(0, 100, step=1)
-            
-        #     with gr.Row():
-        #         bright_image = gr.Image(label= "Bright image")
         with gr.Column():
             with gr.Row():
                 gr.Markdown("REMOVE THINGS (Test with (2090, 560))")

@@ -11,9 +11,9 @@ from PIL import Image
 from matplotlib import pyplot as plt
 import sys
 from typing import Any, Dict, List
-from tabs.tab1 import Tab1
-from tabs.tab2 import Tab2
-from tabs.tab3 import Tab3
+from re_tabs.tab1 import Tab1
+from re_tabs.tab2 import Tab2
+from re_tabs.tab3 import Tab3
 
 
 with gr.Blocks() as mvp:
@@ -22,9 +22,10 @@ with gr.Blocks() as mvp:
     Tab3()
 
 if __name__ == "__main__":
-    os.makedirs("wb_input", exist_ok=True)
-    os.makedirs("wb_output", exist_ok=True)
-    os.makedirs("remove_input", exist_ok=True)
-    os.makedirs("insert_input", exist_ok=True)
+    os.makedirs("outputs", exist_ok=True)
+    for i in range(1,4):
+        os.makedirs(f"outputs/input_tab{i}", exist_ok=True)
+        os.makedirs(f"outputs/output_tab{i}", exist_ok=True)
+    os.makedirs(f"outputs/temps", exist_ok=True)
     mvp.launch(share=True)
     # main()
