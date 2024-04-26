@@ -15,6 +15,17 @@ sam.to(device=device)
 
 predictor = SamPredictor(sam)
 
+def init_tab2():
+    try:
+        image = cv2.imread(os.path.join("outputs", "output_tab1", "input_WB_new.png"))
+        cv2.imwrite(os.path.join("outputs", "input_tab3", "image_0.png"), image) 
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)              
+        input_image = gr.Image(value=image)
+        return input_image
+    except:
+        input_image = gr.Image()
+        return input_image
+    
 def add_point(input_image, x, y):
     predictor.set_image(input_image)
     # check file config    
@@ -109,6 +120,7 @@ def segment_func(input_image, method, evt: gr.SelectData):
     plt.gcf().set_size_inches(input_image.shape[1]/plt.rcParams['figure.dpi'], input_image.shape[0]/plt.rcParams['figure.dpi'])
     
     plt.savefig(os.path.join("outputs", "temps", "tab2.png"),bbox_inches='tight', pad_inches=0)
+    plt.close()
     predict_image = cv2.imread(os.path.join("outputs", "temps", "tab2.png"))
     predict_image = cv2.cvtColor(predict_image, cv2.COLOR_BGR2RGB)
     return predict_image
@@ -149,9 +161,12 @@ def apply_func(input_image):
     return gr.Image(value=image)
     
 def undo_func(input_image):
+    input_image = cv2.imread(os.path.join("outputs", "input_tab2", "image_0.png"))
+    input_image = cv2.cvtColor(input_image, cv2.COLOR_BGR2RGB)
     with open(os.path.join("outputs", "temps", "point_tab2.npy"), 'rb') as f:
         save_point = np.load(f)
         save_label = np.load(f)
+    os.remove(os.path.join("outputs", "temps", "point_tab2.npy"))
     save_point = np.delete(save_point, len(save_point)-1, 0)
     save_label = np.delete(save_label, len(save_label)-1, 0)
     with open(os.path.join("outputs", "temps", "point_tab2.npy"), 'wb') as f:
@@ -176,6 +191,7 @@ def undo_func(input_image):
     plt.gcf().set_size_inches(input_image.shape[1]/plt.rcParams['figure.dpi'], input_image.shape[0]/plt.rcParams['figure.dpi'])
     
     plt.savefig(os.path.join("outputs", "temps", "tab2.png"),bbox_inches='tight', pad_inches=0)
+    plt.close()
     predict_image = cv2.imread(os.path.join("outputs", "temps", "tab2.png"))
     predict_image = cv2.cvtColor(predict_image, cv2.COLOR_BGR2RGB)
     return predict_image

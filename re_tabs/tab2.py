@@ -14,10 +14,13 @@ def Tab2():
 
             with gr.Row():
                 with gr.Column():
-                    image = cv2.imread(os.path.join("outputs", "output_tab1", "input_WB_new.png"))
-                    cv2.imwrite(os.path.join("outputs", "input_tab2", "image_0.png"), image) 
-                    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)              
-                    input_image = gr.Image(value=image)
+                    try:
+                        image = cv2.imread(os.path.join("outputs", "output_tab1", "input_WB_new.png"))
+                        cv2.imwrite(os.path.join("outputs", "input_tab2", "image_0.png"), image) 
+                        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)              
+                        input_image = gr.Image(value=image)
+                    except:
+                        input_image = gr.Image()
                 with gr.Column():
                     predict_image = gr.Image()
                     
@@ -37,4 +40,5 @@ def Tab2():
         
         with gr.Tab("Box"):
             pass
+        remove_tab.select(init_tab2, outputs=[input_image])
     return remove_tab

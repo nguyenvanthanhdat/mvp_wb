@@ -14,10 +14,7 @@ def Tab3():
 
             with gr.Row():
                 with gr.Column():
-                    image = cv2.imread(os.path.join("outputs", "output_tab1", "input_WB_new.png"))
-                    cv2.imwrite(os.path.join("outputs", "input_tab3", "image_0.png"), image) 
-                    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)              
-                    input_image = gr.Image(value=image)
+                    input_image = gr.Image()
                 with gr.Column():
                     predict_image = gr.Image()
                     
@@ -39,4 +36,5 @@ def Tab3():
         
         with gr.Tab("Box"):
             pass
+        insert_tab.select(init_tab3, outputs=[input_image])
     return insert_tab
