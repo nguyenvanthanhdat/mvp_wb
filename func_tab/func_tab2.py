@@ -38,7 +38,7 @@ def get_point(remove_x, remove_y):
 def remove_item(file_path, remove_x, remove_y):
     os.system(
         f"""
-        python Inpaint-Anything/remove_anything.py \
+        python Inpaint_Anything/remove_anything.py \
             --input_img wb_output/input_WB_new.png \
             --coords_type key_in \
             --point_coords {remove_x} {remove_y} \
