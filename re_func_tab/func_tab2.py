@@ -7,8 +7,8 @@ import cv2
 import matplotlib.pyplot as plt
 from PIL import Image
 
-sam_checkpoint = os.path.join("models", "sam_vit_l_0b3195.pth")
-model_type = "vit_l"
+sam_checkpoint = os.path.join("models", "sam_vit_h_4b8939.pth")
+model_type = "vit_h"
 device = "cuda"
 sam = sam_model_registry[model_type](checkpoint=sam_checkpoint)
 sam.to(device=device)
@@ -139,11 +139,14 @@ def apply_func(input_image):
         # mask_p = out_dir / f"mask_{idx}.png"
         # img_inpainted_p = out_dir / f"inpainted_with_{Path(mask_p).name}"
     img_inpainted_p = os.path.join("outputs", "output_tab2", "remove.png")
-    print(input_image.shape)
-    print(max_mask.shape)
+    # print(input_image.shape)
+    # print(max_mask.shape)
     img_inpainted = inpaint_img_with_lama(
         input_image, max_mask, "Inpaint_Anything/lama/configs/prediction/default.yaml", "Inpaint_Anything/pretrained_models/big-lama", device=device)
     save_array_to_img(img_inpainted, img_inpainted_p)
+    image = cv2.imread(os.path.join("outputs", "output_tab2", "remove.png"))
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    return gr.Image(value=image)
     
 def undo_func(input_image):
     with open(os.path.join("outputs", "temps", "point_tab2.npy"), 'rb') as f:
