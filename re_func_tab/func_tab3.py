@@ -156,7 +156,7 @@ def apply_func(input_image, input_prompt):
     img_inpainted = fill_img_with_sd(
         input_image, max_mask, input_prompt, device=device)
     save_array_to_img(img_inpainted, img_inpainted_p)
-    image = cv2.imread(os.path.join("outputs", "output_3", "remove.png"))
+    image = cv2.imread(os.path.join("outputs", "output_tab3", "remove.png"))
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     return gr.Image(value=image)
     
