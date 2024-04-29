@@ -154,7 +154,7 @@ def apply_func(input_image):
     # print(input_image.shape)
     # print(max_mask.shape)
     img_inpainted = inpaint_img_with_lama(
-        input_image, max_mask, "Inpaint_Anything/lama/configs/prediction/default.yaml", "Inpaint_Anything/pretrained_models/big-lama", device=device)
+        input_image, max_mask, "Inpaint_Anything/lama/configs/prediction/default.yaml", "models/big-lama", device=device)
     save_array_to_img(img_inpainted, img_inpainted_p)
     image = cv2.imread(os.path.join("outputs", "output_tab2", "remove.png"))
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
