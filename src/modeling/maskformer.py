@@ -26,13 +26,15 @@ class InteriorSegment:
         self.get_label_file(model_name_or_path)
         
     def load_model(self, model_name_or_path):
-        self.model = MaskFormerForInstanceSegmentation.from_pretrained(model_name_or_path)
+        model = MaskFormerForInstanceSegmentation.from_pretrained(model_name_or_path)
         self.processor = MaskFormerFeatureExtractor.from_pretrained(model_name_or_path)
+        
+        self.model = model.to(DEVICE)
     
     def inference(self, img, name):
         inp_tensor = self.preprocessing(img, tensor_type='pt')
         with torch.no_grad():
-            outputs = self.model(**inp_tensor)
+            outputs = self.model(**inp_tensor.to(DEVICE))
             results = self.processor.post_process_semantic_segmentation(
                 outputs, 
                 target_sizes=[img.size[::-1]]
@@ -51,7 +53,7 @@ class InteriorSegment:
         img_mask = []
         for _name in name:
             assert _name in list(self.label.keys()), f'Could not found {name} in data'
-            mask = (segment.numpy() == self.label[_name]) # get mask
+            mask = (segment.cpu().numpy() == self.label[_name]) # get mask
             visual_mask = (mask * 255).astype(np.uint8)
             img_mask.append(Image.fromarray(visual_mask))
             

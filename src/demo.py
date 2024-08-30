@@ -1,5 +1,6 @@
 import os
 import gradio as gr
+from refactor.utils.assets import ImageAsset
 
 from modeling.maskformer import InteriorSegment
 
@@ -9,12 +10,14 @@ NAME_ATTR = ['ceiling', 'wall', 'floor']
 
 
 def get_images(image):
+    # image = ImageAsset(image).image
     result = MODEL.inference(image, NAME_ATTR)
     return result[0], result[1], result[2]
 
 demo = gr.Interface(
     fn = get_images,
-    inputs=[gr.Image(type="pil", label="Input images")],
+    inputs=[gr.Image(label="Input images", type="pil")],
+    # inputs = ["file"],
     outputs=[gr.Image(label="celling"), gr.Image(label="wall"), gr.Image(label="floor")],
     # examples=[
     #     os.path.join(os.path.dirname(__file__), "datahub/1560_G.png"),
