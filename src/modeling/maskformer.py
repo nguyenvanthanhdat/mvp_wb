@@ -9,15 +9,20 @@ from PIL import Image
 from transformers import MaskFormerFeatureExtractor, MaskFormerForInstanceSegmentation
 
 
-if torch.cuda.is_available():
-    if torch.cuda.device_count() == 1:
-        DEVICE = torch.device('cuda')
-    else:
-        num_gpus = torch.cuda.device_count()
-        DEVICE = torch.device(f'cuda:{num_gpus-1}')
-else:
-    DEVICE = torch.device('cpu')
 
+#if torch.cuda.is_available():
+#    if torch.cuda.device_count() == 1:
+#        DEVICE = torch.device('cuda')
+#    else:
+#        num_gpus = torch.cuda.device_count()
+#        DEVICE = torch.device(f'cuda:{num_gpus-1}')
+#else:
+DEVICE = torch.device('cpu')
+COLOR = {
+    'ceiling' : [255, 255, 0],
+    'wall' : [10, 255, 71], 
+    'floor' : [255, 128, 128]
+}
 
 
 class InteriorSegment:
@@ -40,7 +45,7 @@ class InteriorSegment:
                 target_sizes=[img.size[::-1]]
             )[0]
 
-        result = self.postprocessing(results, name)
+        result = self.postprocessing(results, img, name)
         
         return result
             
@@ -49,14 +54,23 @@ class InteriorSegment:
         
         return input_tensor
     
-    def postprocessing(self, segment, name):
-        img_mask = []
+    def postprocessing(self, segment, image, name):
+        # img_mask = []
+        color_seg = np.zeros((segment.shape[0], segment.shape[1], 3), dtype=np.uint8) # height, width, 3
         for _name in name:
             assert _name in list(self.label.keys()), f'Could not found {name} in data'
-            mask = (segment.cpu().numpy() == self.label[_name]) # get mask
-            visual_mask = (mask * 255).astype(np.uint8)
-            img_mask.append(Image.fromarray(visual_mask))
+            color_seg[segment.cpu().numpy() == self.label[_name], :] = COLOR[_name]
+        
+            # mask = (segment.cpu().numpy() == self.label[_name]) # get mask
+            # visual_mask = (mask * 255).astype(np.uint8)
+            # img_mask.append(Image.fromarray(visual_mask))
             
+        # Convert to BGR
+        color_seg = color_seg[..., ::-1]
+        # Show image + mask
+        img_mask = np.array(image) * 0.5 + color_seg * 0.5
+        img_mask = img_mask.astype(np.uint8)
+    
         return img_mask
     
     def get_label_file(self, model_name_or_path):

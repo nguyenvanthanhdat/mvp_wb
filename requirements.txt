@@ -1,1 +1,5 @@
 transformers
+torch==2.2.0
+pillow
+numpy==2.26.0
+gradio
